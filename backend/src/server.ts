@@ -1,15 +1,13 @@
 import express from "express";
 import cors from "cors";
-
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient({
   log: ["query"],
 });
 
 const app = express();
 app.use(cors({
-  origin:"*"
+  origin:'http://localhost:5173'
 }))
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -24,9 +22,7 @@ app.get("/games", async (req, res) => {
       },
     },
   });
-  return res.json({
-    games: games,
-  });
+  return res.json(games);
 });
 
 app.get("/games/:id/ads", async (req, res) => {
